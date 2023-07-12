@@ -1,0 +1,8 @@
+.description_Container {
+  display: "flex";
+  flex-direction: "column";
+  direction: "rtl";
+  gap: "8px";
+  width: "70%";
+  font-family: "IRANSans Num";
+}
