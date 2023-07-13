@@ -3,16 +3,11 @@ import type { RootState } from "../store";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-let initCart: string | null= null;
-if (typeof window !== "undefined") {
-  initCart = localStorage.getItem("shoppingCart");
-}
 
-const initialState: Cart[] = initCart ? JSON.parse(initCart) : [];
 
 export const slice = createSlice({
   name: "cart",
-  initialState,
+  initialState: [] as Cart[],
   reducers: {
     addToCart: (state, action: PayloadAction<Product>) => {
       const isInCart = state.some(
@@ -43,10 +38,16 @@ export const slice = createSlice({
       localStorage.setItem("shoppingCart", JSON.stringify(newState));
       return newState;
     },
+    loadCart: () => {
+      const localCart = localStorage.getItem("shoppingCart");
+      const result=  localCart ? JSON.parse(localCart) as Cart[] : [];
+      console.log(result);
+      return result;
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = slice.actions;
+export const { addToCart, removeFromCart, loadCart } = slice.actions;
 
 export const selectCart = (state: RootState) => state.cart;
 

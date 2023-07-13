@@ -4,23 +4,31 @@ import Badge from "@mui/material/Badge";
 import CartProducts from "./cartProducts";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { useAppSelector } from "@/store/redux/hooks";
-import { selectCart } from "@/store/redux/reducer/cart";
+import { useAppDispatch, useAppSelector } from "@/store/redux/hooks";
+import { loadCart, selectCart } from "@/store/redux/reducer/cart";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useEffect } from 'react';
+import { Paper } from '@mui/material';
 
 
 export default function Cart() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const cartProducts = useAppSelector(selectCart);
+  const 
+    [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null),
+    open = Boolean(anchorEl),
+    cartProducts = useAppSelector(selectCart),
+    dispatch = useAppDispatch(),
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+    handleClick = (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget);
+    },
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    handleClose = () => {
+      setAnchorEl(null);
+    };
+
+  useEffect(() => {
+    dispatch(loadCart());
+  }, []);
 
   const totalPrice = cartProducts.reduce((prev, current) => {
     return prev + current.count * current.price;

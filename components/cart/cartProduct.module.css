@@ -1,8 +1,23 @@
-.description_Container {
-  display: "flex";
-  flex-direction: "column";
-  direction: "rtl";
-  gap: "8px";
-  width: "70%";
-  font-family: "IRANSans Num";
+.description {
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+  gap: 8px;
+  width: 70%;
+  font-family: 'IRANSans Num';
+}
+
+.description p {
+  font-family: 'IRANSans Num';
+}
+
+.title{
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.price{
+  color: red;
 }

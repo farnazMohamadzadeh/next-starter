@@ -7,19 +7,24 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppDispatch } from "@/store/redux/hooks";
-import { removeFromCart } from "@/store/redux/reducer/cart";
+import { loadCart, removeFromCart } from "@/store/redux/reducer/cart";
+import styles from './cartProduct.module.css';
+import { useEffect } from 'react';
 
 const CartProducts = ({ product }: { product: Cart }) => {
   console.log("product", product);
   const dispatch = useAppDispatch();
+
   const deleteHandler = (id: number) => {
     dispatch(removeFromCart(id));
   };
+
+  
   return (
     <>
       {product && (
         <>
-          <MenuItem
+          <MenuItem        
             sx={{
               display: "flex",
               minWidth: "500px",
@@ -35,31 +40,22 @@ const CartProducts = ({ product }: { product: Cart }) => {
                 width: "80%",
               }}
             >
-              <Image src={product.image} alt="" width={100} height={100} />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  direction: "rtl",
-                  gap: "8px",
-                  width: "70%",
-                  fontFamily: "IRANSans Num",
-                }}
-              >
+              <Image 
+                src={product.image} 
+                alt=""
+                width={100}
+                height={100} 
+              />
+              <div className={styles.description}>
                 <Typography
-                  sx={{
-                    fontWeight: "600",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}
+                    component={'span'}
+                    className={styles.title}
                 >
                   {product.title}
                 </Typography>
 
-                <Typography sx={{ color: "#1976d2" }}>
-                  {" "}
-                  {product.price} تومان{" "}
+                <Typography className={styles.price}>
+                  {` ${product.price} تومان `}
                 </Typography>
                 <Typography> {product.count} :تعداد </Typography>
               </div>
